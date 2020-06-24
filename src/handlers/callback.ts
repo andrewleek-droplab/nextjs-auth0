@@ -61,14 +61,15 @@ export default function callbackHandler(
     // Create the session.
     await sessionStore.save(req, res, session);
 
-    if(options && !options.manualResponse)
-    {
-      // Redirect to the homepage or custom url.
-      const redirectTo = (options && options.redirectTo) || decodedState.redirectTo || '/';
-      res.writeHead(302, {
-        Location: redirectTo
-      });
-      res.end();
+    if (options && options.manualResponse) {
+      return;
     }
+
+    // Redirect to the homepage or custom url.
+    const redirectTo = (options && options.redirectTo) || decodedState.redirectTo || '/';
+    res.writeHead(302, {
+      Location: redirectTo
+    });
+    res.end();
   };
 }
